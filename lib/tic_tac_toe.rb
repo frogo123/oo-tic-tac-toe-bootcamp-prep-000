@@ -134,7 +134,7 @@ else
 end
 end
 
-def over?(board)
+def over?
 
 if  won? && full? == false && draw? == false
   return true
