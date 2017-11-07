@@ -26,8 +26,61 @@ def input_to_index(user_input)
   user_input.to_i - 1
 end
 
-def move
+def move(index, current_player)
   @board[index] = @current_player
+end
+
+def position_taken?(location)
+  @board[location] != " " && @board[location] != ""
+end
+
+def valid_move?( index)
+  index.between?(0,8) && !position_taken?(index)
+end
+
+def turn_count
+  turn_counter = 0
+  @board.each do |value|
+    if value == "X" || value == "O"
+turn_counter += 1
+end
+end
+return turn_counter
+end
+
+def current_player
+num = turn_count
+if num % 2 == 0
+  return "X"
+else
+  return "O"
+end
+end
+
+def turn(board)
+  puts "Please enter 1-9:"
+  input = gets.strip
+  index = input_to_index(input)
+   if valid_move?(board, index)
+    move(board, index, current_player(board))
+     display_board(board)
+   else
+     turn(board)
+  end
+  end
+
+def play
+  won?
+  draw?
+while over? == false do
+  turn
+end
+if won?
+  puts "Congratulations #{winner(@board)}!"
+end
+if draw?
+  puts "Cat's Game!"
+end
 end
 
 end
