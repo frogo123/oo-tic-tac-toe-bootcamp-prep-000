@@ -83,4 +83,79 @@ if draw?
 end
 end
 
+def won?
+
+empty = 0
+counter = 0
+ WIN_COMBINATIONS.each do |intArr|
+
+#set variables to board inputs
+  i1 = @board[intArr[0]]
+  i2 = @board[intArr[1]]
+  i3 = @board[intArr[2]]
+
+#check to make sure mathches are not empty board spaces
+#and check that board posistion match winning combinations
+  if i1 != " " && i2 != " " && i3 != " " && i1 == i2 && i2 == i3 && i1 == i3
+#return winning combination
+return intArr
+#else add 1 to counter
+ else
+  counter += 1
+  #if counter gets to 8 return false as there are no mathches
+  if counter == 8
+    counter == 0
+    return false
+  end
+
+ end
+
+ puts counter
+
+ intArr = []
+ puts counter
+end
+end
+
+#full method
+def full?
+  #check if every element in the board has been filled by either an X or a O
+  @board.all? do |element|
+ element == "X" || element == "O"
+end
+end
+
+#draw method
+def draw?
+if full? && won? == false
+  return true
+else
+  return false
+end
+end
+
+def over?(board)
+
+if  won? && full? == false && draw? == false
+  return true
+elsif full? && won?
+  return true
+elsif draw?
+  return true
+else
+  return false
+end
+
+end
+
+def winner
+  if won?
+  arr = won?
+  sym = @board[arr[0]]
+return sym
+else
+  return nil
+end
+end
+
 end
